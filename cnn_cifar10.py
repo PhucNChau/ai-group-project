@@ -4,7 +4,8 @@ import tensorflow as tf
 # Helper libraries
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import datasets
+from models import create_cnn_1
 
 (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
@@ -27,4 +28,7 @@ class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
 #     plt.xlabel(class_names[train_labels[i][0]])
 # plt.show()
 
+cnn_1 = create_cnn_1((32,32,3))
 
+cnn_1.summary()
+# cnn_1.compile()
