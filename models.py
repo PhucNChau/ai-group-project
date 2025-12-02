@@ -39,8 +39,16 @@ def create_cnn_2(input_shape):
 
     return model
 
-# CNN_3 has 7 convolutional and 3 FC layers
-def create_cnn_3(input_shape):
+# CAE_1
+def create_cae_1(input_shape):
+    model = models.Sequential()
+
+
+
+    return model
+
+# CAE_2
+def create_cae_2(input_shape):
     model = models.Sequential()
 
 
