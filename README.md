@@ -26,4 +26,4 @@ Popular optimation methods are selected as follows:
     - [ ] CAE_1 for MNIST
     - [ ] CAE_2 for CIFAR10
     - [ ] CAE_2 for MNIST
-Notes: Each todo is performed in corresponding file and all optimization methods are compared in 8 files.
+    - Notes: Each todo is performed in corresponding file and all optimization methods are compared in 8 files.
