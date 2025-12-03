@@ -1,6 +1,6 @@
 # Define multiple models for various datasets
 
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers, models, optimizers
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
@@ -97,3 +97,32 @@ def train_model(dataset, model, optimizer):
     result['history'] = history.history
 
     return result
+
+def draw_figure(results):
+    # Draw figure
+    plt.figure(figsize=(12, 6))
+    for name, res in results.items():
+        plt.plot(res['history']['loss'], label=f"{name}")
+    plt.title("Training Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+list_optimizers = {
+    "SGD": optimizers.SGD(
+        learning_rate=0.01
+    ),
+    "Adam": optimizers.Adam(
+        learning_rate=0.001,
+        beta_1=0.9,
+        beta_2=0.999
+    ),
+    "AdaMax": optimizers.Adamax(
+        learning_rate=0.001,
+        beta_1=0.9,
+        beta_2=0.999
+    )
+}
+
