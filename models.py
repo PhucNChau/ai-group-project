@@ -2,6 +2,7 @@
 
 from tensorflow.keras import layers, models
 from tensorflow.keras.regularizers import l2
+from tensorflow.keras.utils import to_categorical
 
 # CNN_1 has 3 convolutional and 2 FC layers
 def create_cnn_1(input_shape):
@@ -54,3 +55,43 @@ def create_cae_2(input_shape):
 
 
     return model
+
+
+# Training model
+def train_model(dataset, model, optimizer):
+    # Init param for model training
+    (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
+    # Normalize pixel values to be between 0 and 1
+    train_images, test_images = train_images / 255.0, test_images / 255.0
+
+    # Transform label size to use categorical_crossentropy loss func
+    train_labels = to_categorical(train_labels, num_classes=10)
+    test_labels = to_categorical(test_labels, num_classes=10)
+
+    batch_size = 128
+    no_of_epochs = 5
+    loss_func = 'categorical_crossentropy'
+
+
+    # Compile model
+    model.compile(optimizer=optimizer,
+                  loss=loss_func,
+                  metrics=['accuracy'])
+    
+    # Train model
+    history = model.fit(
+        train_images,
+        train_labels,
+        epochs = no_of_epochs,
+        batch_size = batch_size,
+        validation_data=(test_images, test_labels))
+
+    # Evaluate model
+    test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+
+    result = {}
+    result['test_loss'] = test_loss
+    result['test_acc'] = test_acc
+    result['history'] = history.history
+
+    return result
