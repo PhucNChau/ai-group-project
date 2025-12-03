@@ -3,6 +3,7 @@
 from tensorflow.keras import layers, models
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.utils import to_categorical
+import matplotlib.pyplot as plt
 
 # CNN_1 has 3 convolutional and 2 FC layers
 def create_cnn_1(input_shape):
@@ -69,7 +70,8 @@ def train_model(dataset, model, optimizer):
     test_labels = to_categorical(test_labels, num_classes=10)
 
     batch_size = 128
-    no_of_epochs = 5
+    # Epochs should be 50. Set low for quick debug
+    no_of_epochs = 2
     loss_func = 'categorical_crossentropy'
 
 

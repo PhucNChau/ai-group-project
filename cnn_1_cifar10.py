@@ -1,34 +1,32 @@
 # TensorFlow and tf.keras
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 # Helper libraries
 import numpy as np
-import matplotlib.pyplot as plt
 from tensorflow.keras import datasets
-from models import create_cnn_1
+from models import create_cnn_1, train_model
+from list_optimizers import list_optimizers
 
-(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+for name, optimizer in list_optimizers.items():
+    print(f"Training with {name} optimizer...")
 
-# Normalize pixel values to be between 0 and 1
-train_images, test_images = train_images / 255.0, test_images / 255.0
+    # Create model
+    model = create_cnn_1((32,32,3))
 
-class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
-               'dog', 'frog', 'horse', 'ship', 'truck']
+    # name = 'Adam'
+    result = train_model(datasets.cifar10, model, list_optimizers[name])
+    
+    # Draw figure
+    # This section is temporary will create a func for this
+    plt.figure(figsize=(12, 6))
+    # for name, res in results.items():
+    plt.plot(result['history']['loss'], label=f"{name}")
+    plt.title("Training Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# show pics
-# plt.figure(figsize=(8,8))
-# for i in range(25):
-#     plt.subplot(5,5,i+1)
-#     plt.xticks([])
-#     plt.yticks([])
-#     plt.grid(False)
-#     plt.imshow(train_images[i])
-#     # The CIFAR labels happen to be arrays, 
-#     # which is why you need the extra index
-#     plt.xlabel(class_names[train_labels[i][0]])
-# plt.show()
 
-cnn_1 = create_cnn_1((32,32,3))
-
-cnn_1.summary()
-# cnn_1.compile()
