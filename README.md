@@ -14,16 +14,10 @@ Popular optimation methods are selected as follows:
 ## Todo list
 1. Build models
     - [x] CNN_1: 3 convolutional and 2 FC layers
-    - [ ] CNN_2: 5 convolutional and 3 FC layers
-    - [ ] CAE_1:
-    - [ ] CAE_2:
+    - [ ] CAE_1: con
 2. Train, test, print comparison results for 4 architectures in 2 datasets
-    - [ ] CNN_1 for CIFAR10
+    - [x] CNN_1 for CIFAR10
     - [ ] CNN_1 for MNIST
-    - [ ] CNN_2 for CIFAR10
-    - [ ] CNN_2 for MNIST
     - [ ] CAE_1 for CIFAR10
     - [ ] CAE_1 for MNIST
-    - [ ] CAE_2 for CIFAR10
-    - [ ] CAE_2 for MNIST
-    - Notes: Each todo is performed in corresponding file and all optimization methods are compared in 8 files.
+    - Notes: Each todo is performed in corresponding file and all optimization methods are compared in 4 files.
