@@ -98,12 +98,12 @@ def train_model(dataset, model, optimizer):
 
     return result
 
-def draw_figure(results):
+def draw_figure(results, figure_title=""):
     # Draw figure
     plt.figure(figsize=(12, 6))
     for name, res in results.items():
         plt.plot(res['history']['loss'], label=f"{name}")
-    plt.title("Training Loss")
+    plt.title(f"Training Loss for {figure_title}")
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.legend()
