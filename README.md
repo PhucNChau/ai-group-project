@@ -9,12 +9,12 @@ Popular optimation methods are selected as follows:
 - SGD
 - Adam
 - AdaMax
-- Select an algorithm to build it and compare with other built-in optimizers: Adam - [Link to the paper](https://arxiv.org/abs/1412.6980)
+- Select an algorithm to build it and compare with other built-in optimizers: Adam - Link to the paper: [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980)
 
 ## Todo list
 1. Build models
     - [x] CNN_1: 3 convolutional and 2 FC layers
-    - [ ] CAE_1: convolutional autoencoder
+    - [x] CAE_1: convolutional autoencoder
 2. Train, test, print comparison results for 4 architectures in 2 datasets
     - [x] CNN_1 for CIFAR10
     - [x] CNN_1 for MNIST

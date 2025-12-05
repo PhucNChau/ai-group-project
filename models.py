@@ -120,12 +120,15 @@ def train_cae_model(dataset, model):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 2
+    no_of_epochs = 1
 
     loss_func = 'mean_squared_error'
     metrics = ['mse']
 
     results = {}
+    comparisons = {}
+    # reshape test images to visualize reconstruction test
+    results["test_images"] = test_images[..., None]
 
     for name, optimizer in list_optimizers.items():
         print(f"Training with {name} optimizer...")
@@ -142,14 +145,23 @@ def train_cae_model(dataset, model):
             epochs = no_of_epochs,
             batch_size = batch_size,
             validation_data=(test_images, test_images))
+        
+        # Save the model
+        model.save(f"cae_model_{name}.keras")
 
         # Evaluate model
         test_loss = model.evaluate(test_images,  test_images, verbose=2)
 
-        results[name] = {
+        # Image reconstruction
+        predicted_images = model.predict(results["test_images"])
+
+        comparisons[name] = {
             "test_loss": test_loss,
-            "history": history.history
+            "history": history.history,
+            "predicted_images": predicted_images
         }
+
+    results["compared_results"] = comparisons
 
     return results
 
@@ -163,6 +175,39 @@ def draw_figure(results, figure_title=""):
     plt.ylabel("Loss")
     plt.legend()
     plt.grid(True)
+    plt.show()
+
+def show_image_reconstruction(results, figure_title=""):
+    # number of images to show
+    n = 10
+    # number of rows
+    rows = 1 + len(results["compared_results"])
+    # Draw figure
+    plt.figure(figsize=(18, 6))
+    title_list = ["Original Images"]
+
+    for i in range(n):
+        # Original images (top row)
+        ax = plt.subplot(rows, n, i + 1)
+        plt.imshow(results["test_images"][i].squeeze(), cmap="gray")
+        plt.axis("off")
+
+    # Reconstructed images
+    j = 1
+    for name, res in results["compared_results"].items():
+        for i in range(n):
+            ax = plt.subplot(rows, n, i + 1 + (n * j))
+            plt.imshow(res["predicted_images"][i].squeeze(), cmap="gray")
+            plt.axis("off")
+
+        j += 1
+        title_list.append(name)
+
+    k = len(title_list) - 1
+    while k >= 0:
+        plt.figtext(0.01, 0.2 + 0.25 * (len(title_list) - 1 - k), title_list[k], fontsize=14, va="center")
+        k -= 1
+
     plt.show()
 
 list_optimizers = {
