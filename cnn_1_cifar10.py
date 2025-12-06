@@ -1,6 +1,6 @@
 # TensorFlow
 from keras import datasets
-from models import create_cnn_1, train_cnn_model, draw_figure
+from models import create_cnn_1, train_cnn_model, draw_figure, print_results
 
 # Conduct training, testing and show results for CIFAR10 dataset
 
@@ -9,6 +9,9 @@ from models import create_cnn_1, train_cnn_model, draw_figure
 model = create_cnn_1((32,32,3))
 # Train model
 cnn_results = train_cnn_model(datasets.cifar10, model, is_colored_image=1)
-    
+
+# Print results
+print_results(cnn_results)
+
 # Draw figure
 draw_figure(cnn_results, "CNN_1 on CIFAR10")

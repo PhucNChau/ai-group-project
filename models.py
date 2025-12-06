@@ -72,14 +72,13 @@ def train_cnn_model(dataset, model, is_colored_image):
     (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
 
     # Reduce size
-    train_size = 5000
-    test_size = 1000
+    train_size = int(0.10 * train_images.shape[0])
+    test_size = int(0.10 * test_images.shape[0])
     np.random.seed(42)
 
     train_idx = np.random.choice(len(train_images), train_size, replace=False)
     test_idx = np.random.choice(len(test_images), test_size, replace=False)
 
-    
     train_images = train_images[train_idx]
     train_labels = train_labels[train_idx]
 
@@ -91,7 +90,7 @@ def train_cnn_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 10
+    no_of_epochs = 50
 
     # Transform label size to use categorical_crossentropy loss func
     train_labels = to_categorical(train_labels, num_classes=10)
@@ -138,14 +137,13 @@ def train_cae_model(dataset, model, is_colored_image):
     (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
 
     # Reduce size
-    train_size = 5000
-    test_size = 1000
+    train_size = int(0.10 * train_images.shape[0])
+    test_size = int(0.10 * test_images.shape[0])
     np.random.seed(42) 
 
     train_idx = np.random.choice(len(train_images), train_size, replace=False)
     test_idx = np.random.choice(len(test_images), test_size, replace=False)
 
-    
     train_images = train_images[train_idx]
     train_labels = train_labels[train_idx]
 
@@ -157,7 +155,7 @@ def train_cae_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 10
+    no_of_epochs = 50
 
     loss_func = 'mean_squared_error'
     metrics = ['mse']
@@ -217,6 +215,15 @@ def draw_figure(results, figure_title=""):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+def print_results(results):
+    print("\n===== FINAL RESULTS =====")
+    for name, res in results.items():
+        if "test_acc" in res:
+            text = f"{name} Accuracy: {res["test_acc"]:.4f}, Loss: {res["test_loss"]:.4f}"
+        else:
+            text = f"{name} Loss: {res["test_loss"]:.4f}"
+        print(text)
 
 def show_image_reconstruction(results, is_colored_image):
     # number of images to show

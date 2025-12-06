@@ -1,6 +1,6 @@
 # TensorFlow
 from keras import datasets
-from models import create_cae_1, train_cae_model, draw_figure, show_image_reconstruction
+from models import create_cae_1, train_cae_model, draw_figure, show_image_reconstruction, print_results
 
 # Conduct training, testing and show results for CIFAR10 dataset
 
@@ -9,6 +9,9 @@ from models import create_cae_1, train_cae_model, draw_figure, show_image_recons
 model = create_cae_1((32,32,3))
 # Train model
 cae_results = train_cae_model(datasets.cifar10, model, is_colored_image=1)
+
+# Print results
+print_results(cae_results["compared_results"])
     
 # Draw figure
 draw_figure(cae_results["compared_results"], "CAE_1 on CIFAR10")
