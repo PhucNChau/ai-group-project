@@ -18,6 +18,6 @@ Popular optimation methods are selected as follows:
 2. Train, test, print comparison results for 4 architectures in 2 datasets
     - [x] CNN_1 for CIFAR10
     - [x] CNN_1 for MNIST
-    - [ ] CAE_1 for CIFAR10
-    - [ ] CAE_1 for MNIST
+    - [x] CAE_1 for CIFAR10
+    - [x] CAE_1 for MNIST
     - Notes: Each todo is performed in corresponding file and all optimization methods are compared in 4 files.
