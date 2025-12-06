@@ -1,5 +1,5 @@
 # TensorFlow 
-from tensorflow.keras import datasets
+from keras import datasets
 from models import create_cnn_1, train_cnn_model, draw_figure
 
 # Conduct training, testing and show results for MNIST dataset
@@ -9,6 +9,6 @@ from models import create_cnn_1, train_cnn_model, draw_figure
 model = create_cnn_1((28,28,1))
 # Train model
 cnn_results = train_cnn_model(datasets.mnist, model)
-    
+
 # Draw figure
 draw_figure(cnn_results, "CNN_1 on MNIST")

@@ -1,9 +1,10 @@
 # Define multiple models for various datasets
 
-from tensorflow.keras import layers, models, optimizers
-from tensorflow.keras.regularizers import l2
-from tensorflow.keras.utils import to_categorical
+from keras import layers, models, optimizers
+from keras.regularizers import l2
+from keras.utils import to_categorical
 import matplotlib.pyplot as plt
+from custom_optimizers import CustomAdam
 
 # CNN_1 has 3 convolutional and 2 FC layers
 def create_cnn_1(input_shape):
@@ -74,7 +75,7 @@ def train_cnn_model(dataset, model):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 2
+    no_of_epochs = 50
 
     # Transform label size to use categorical_crossentropy loss func
     train_labels = to_categorical(train_labels, num_classes=10)
@@ -120,7 +121,7 @@ def train_cae_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 1
+    no_of_epochs = 50
 
     loss_func = 'mean_squared_error'
     metrics = ['mse']
@@ -232,6 +233,11 @@ list_optimizers = {
         beta_2=0.999
     ),
     "AdaMax": optimizers.Adamax(
+        learning_rate=0.001,
+        beta_1=0.9,
+        beta_2=0.999
+    ),
+    "CustomAdam": CustomAdam(
         learning_rate=0.001,
         beta_1=0.9,
         beta_2=0.999

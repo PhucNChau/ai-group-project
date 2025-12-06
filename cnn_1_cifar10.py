@@ -1,5 +1,5 @@
 # TensorFlow
-from tensorflow.keras import datasets
+from keras import datasets
 from models import create_cnn_1, train_cnn_model, draw_figure
 
 # Conduct training, testing and show results for CIFAR10 dataset

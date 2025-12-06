@@ -1,5 +1,5 @@
 # TensorFlow
-from tensorflow.keras import datasets
+from keras import datasets
 from models import create_cae_1, train_cae_model, draw_figure, show_image_reconstruction
 
 # Conduct training, testing and show results for CIFAR10 dataset
