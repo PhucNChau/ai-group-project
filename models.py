@@ -67,7 +67,7 @@ def create_cae_1(input_shape):
     return model
 
 # Training CNN model
-def train_cnn_model(dataset, model):
+def train_cnn_model(dataset, model, is_colored_image):
     # Init param for model training
     (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
     # Normalize pixel values to be between 0 and 1
@@ -100,6 +100,10 @@ def train_cnn_model(dataset, model):
             epochs = no_of_epochs,
             batch_size = batch_size,
             validation_data=(test_images, test_labels))
+        
+        # Save the model
+        dataset_name = "cifar10" if is_colored_image else "mnist"
+        model.save(f"cae_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
         test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)

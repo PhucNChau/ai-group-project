@@ -8,7 +8,7 @@ from models import create_cnn_1, train_cnn_model, draw_figure
 # mnist data set has size 28x28 and is grayscale
 model = create_cnn_1((28,28,1))
 # Train model
-cnn_results = train_cnn_model(datasets.mnist, model)
+cnn_results = train_cnn_model(datasets.mnist, model, is_colored_image=0)
 
 # Draw figure
 draw_figure(cnn_results, "CNN_1 on MNIST")
