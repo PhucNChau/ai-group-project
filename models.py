@@ -75,7 +75,7 @@ def train_cnn_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 50
+    no_of_epochs = 10
 
     # Transform label size to use categorical_crossentropy loss func
     train_labels = to_categorical(train_labels, num_classes=10)
@@ -106,7 +106,7 @@ def train_cnn_model(dataset, model, is_colored_image):
         model.save(f"cae_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
-        test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+        test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
 
         results[name] = {
             "test_loss": test_loss,
@@ -125,7 +125,7 @@ def train_cae_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 50
+    no_of_epochs = 10
 
     loss_func = 'mean_squared_error'
     metrics = ['mse']
@@ -159,7 +159,7 @@ def train_cae_model(dataset, model, is_colored_image):
         model.save(f"cae_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
-        test_loss = model.evaluate(test_images,  test_images, verbose=2)
+        test_loss = model.evaluate(test_images, test_images, verbose=2)
 
         # Image reconstruction
         predicted_images = model.predict(results["test_images"])
