@@ -117,8 +117,8 @@ def train_cnn_model(dataset, model, is_colored_image):
             validation_data=(test_images, test_labels))
         
         # Save the model
-        dataset_name = "cifar10" if is_colored_image else "mnist"
-        model.save(f"cnn_model_{dataset_name}_{name}.keras")
+        # dataset_name = "cifar10" if is_colored_image else "mnist"
+        # model.save(f"cnn_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
         test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
@@ -185,8 +185,8 @@ def train_cae_model(dataset, model, is_colored_image):
             validation_data=(test_images, test_images))
         
         # Save the model
-        dataset_name = "cifar10" if is_colored_image else "mnist"
-        model.save(f"cae_model_{dataset_name}_{name}.keras")
+        # dataset_name = "cifar10" if is_colored_image else "mnist"
+        # model.save(f"cae_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
         test_loss = model.evaluate(test_images, test_images, verbose=2)
@@ -222,7 +222,7 @@ def print_results(results):
         if "test_acc" in res:
             text = f"{name} Accuracy: {res["test_acc"]:.4f}, Loss: {res["test_loss"]:.4f}"
         else:
-            text = f"{name} Loss: {res["test_loss"]:.4f}"
+            text = f"{name} Loss: {res["test_loss"][0]:.4f}"
         print(text)
 
 def show_image_reconstruction(results, is_colored_image):
