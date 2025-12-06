@@ -1,10 +1,10 @@
 # Define multiple models for various datasets
-
 from keras import layers, models, optimizers
 from keras.regularizers import l2
 from keras.utils import to_categorical
 import matplotlib.pyplot as plt
 from custom_optimizers import CustomAdam
+import numpy as np
 
 # CNN_1 has 3 convolutional and 2 FC layers
 def create_cnn_1(input_shape):
@@ -70,6 +70,22 @@ def create_cae_1(input_shape):
 def train_cnn_model(dataset, model, is_colored_image):
     # Init param for model training
     (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
+
+    # Reduce size
+    train_size = 5000
+    test_size = 1000
+    np.random.seed(42)
+
+    train_idx = np.random.choice(len(train_images), train_size, replace=False)
+    test_idx = np.random.choice(len(test_images), test_size, replace=False)
+
+    
+    train_images = train_images[train_idx]
+    train_labels = train_labels[train_idx]
+
+    test_images = test_images[test_idx]
+    test_labels = test_labels[test_idx]
+    
     # Normalize pixel values to be between 0 and 1
     train_images, test_images = train_images / 255.0, test_images / 255.0
 
@@ -103,7 +119,7 @@ def train_cnn_model(dataset, model, is_colored_image):
         
         # Save the model
         dataset_name = "cifar10" if is_colored_image else "mnist"
-        model.save(f"cae_model_{dataset_name}_{name}.keras")
+        model.save(f"cnn_model_{dataset_name}_{name}.keras")
 
         # Evaluate model
         test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
@@ -120,6 +136,22 @@ def train_cnn_model(dataset, model, is_colored_image):
 def train_cae_model(dataset, model, is_colored_image):
     # Init param for model training
     (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
+
+    # Reduce size
+    train_size = 5000
+    test_size = 1000
+    np.random.seed(42) 
+
+    train_idx = np.random.choice(len(train_images), train_size, replace=False)
+    test_idx = np.random.choice(len(test_images), test_size, replace=False)
+
+    
+    train_images = train_images[train_idx]
+    train_labels = train_labels[train_idx]
+
+    test_images = test_images[test_idx]
+    test_labels = test_labels[test_idx]
+
     # Normalize pixel values to be between 0 and 1
     train_images, test_images = train_images / 255.0, test_images / 255.0
 
@@ -222,7 +254,7 @@ def show_image_reconstruction(results, is_colored_image):
 
     k = len(title_list) - 1
     while k >= 0:
-        plt.figtext(0.01, 0.2 + 0.28 * (len(title_list) - 1 - k), title_list[k], fontsize=14, va="center")
+        plt.figtext(0.02, 0.18 + 0.2 * (len(title_list) - 1 - k), title_list[k], fontsize=14, va="center")
         k -= 1
 
     plt.show()
