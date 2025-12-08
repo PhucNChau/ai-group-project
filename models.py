@@ -90,7 +90,7 @@ def train_cnn_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 50
+    no_of_epochs = 5
 
     # Transform label size to use categorical_crossentropy loss func
     train_labels = to_categorical(train_labels, num_classes=10)
@@ -155,7 +155,7 @@ def train_cae_model(dataset, model, is_colored_image):
 
     batch_size = 128
     # Epochs should be 50. Set low for quick debug
-    no_of_epochs = 50
+    no_of_epochs = 5
 
     loss_func = 'mean_squared_error'
     metrics = ['mse']
@@ -270,16 +270,16 @@ list_optimizers = {
     "SGD": optimizers.SGD(
         learning_rate=0.01
     ),
-    "Adam": optimizers.Adam(
-        learning_rate=0.001,
-        beta_1=0.9,
-        beta_2=0.999
-    ),
-    "AdaMax": optimizers.Adamax(
-        learning_rate=0.001,
-        beta_1=0.9,
-        beta_2=0.999
-    ),
+    # "Adam": optimizers.Adam(
+    #     learning_rate=0.001,
+    #     beta_1=0.9,
+    #     beta_2=0.999
+    # ),
+    # "AdaMax": optimizers.Adamax(
+    #     learning_rate=0.001,
+    #     beta_1=0.9,
+    #     beta_2=0.999
+    # ),
     "CustomAdam": CustomAdam(
         learning_rate=0.001,
         beta_1=0.9,
